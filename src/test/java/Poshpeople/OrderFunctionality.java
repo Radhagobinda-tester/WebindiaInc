@@ -3,6 +3,8 @@ package Poshpeople;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -116,11 +118,70 @@ public class OrderFunctionality {
    	   System.out.println("actualurl is not matching with the expected url");
       }
        Thread.sleep(10000);
-        
-        driver.quit();
-        
-		
-        
+       
+       driver.navigate().to("https://poshpeople.in");
+
+       Thread.sleep(10000);
+
+       Actions actions = new Actions(driver);
+       WebElement element = driver.findElement(By.id("menu-item-3597"));
+
+       actions.moveToElement(element).perform();
+       Thread.sleep(10000);
+
+        driver.findElement(By.xpath("(//span[contains(text(),'1')])[1]")).click();
+
+        //Thread.sleep(20000);
+        driver.findElement(By.xpath("//h2[normalize-space()='Artistic Colorful Bubble Wave Cases for iPhone']")).click();
+        Thread.sleep(20000);
+        WebElement dropdown = driver.findElement(By.xpath("(//select[@class='select-brands'])"));
+        Select select = new Select(dropdown);
+        Thread.sleep(10000);
+        select.selectByVisibleText("iPhone 14 Pro Max");
+
+
+        /*
+        driver.findElement(By.xpath("(//select[@class='select-brands']")).click();
+        Thread.sleep(20000);
+        driver.findElement(By.xpath("((//option[contains(text(),'iPhone 14 Pro Max')])[2]")).click();
+        */
+        Thread.sleep(20000);
+        driver.findElement(By.cssSelector(" div[class='woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-enabled'] input[value='+']")).click();
+        Thread.sleep(10000);
+        //div[class='woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-enabled'] input[value='+']
+        driver.findElement(By.cssSelector("div[class='woocommerce-variation-add-to-cart variations_button woocommerce-variation-add-to-cart-enabled'] input[value='-']")).click();
+
+        Thread.sleep(10000);
+        WebElement qty1 =  driver.findElement(By.xpath("(//input[contains(@name,'quantity')])"));
+       Thread.sleep(10000);
+       qty1.clear();
+       Thread.sleep(10000);
+       qty1.sendKeys("1");
+       Thread.sleep(20000);
+
+       driver.findElement(By.xpath("//button[normalize-space(text())='Add to cart']")).click();
+       Thread.sleep(20000);
+       driver.findElement(By.cssSelector("button[value='17197']")).click();
+      // button[value='17197']
+       //driver.findElement(By.xpath("//button[normalize-space(text()='Buy Now']")).click();
+       Thread.sleep(10000);
+
+       String actualurl2 = driver.getCurrentUrl();
+       String expecteurl2 = "https://poshpeople.in/checkout/";
+       Thread.sleep(20000);
+       System.out.println(actualurl1);
+       Thread.sleep(20000);
+       if(actualurl2.equals(expecteurl2)) {
+    	   System.out.println("actualurl is  matching with the expected url,user is able to add multiple product program is succesfully executed. ");
+       }
+       else {
+    	   System.out.println("actualurl is not matching with the expected url");
+       }
+
+       Thread.sleep(20000);
+
+       driver.quit();
+         
 		
 	}
 }
